@@ -8,16 +8,22 @@ class Customer
   def initialize(options={})
     @name = options[:name]
     add_to_customers
+    #find_by_name
   end
 
   def self.all
     @@customers
   end
 
-  def find_by_name(input_name)
-
-
+  def purchase
+  	puts 333
   end
+
+#  def find_by_name
+#	@@customers.each do |cust|
+#		puts cust.name
+#	end
+ # end
 
 
   private

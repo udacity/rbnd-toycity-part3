@@ -15,19 +15,13 @@ firehouse = Product.new(title: "LEGO Firehouse Headquarter", price: 199.99, stoc
 puts Product.all.count # Should return 3
 puts nanoblock.price
 
-
-
 # Should return DuplicateProductError: 'LEGO Iron Man vs. Ultron' already exists.
 
 ###The following line is commented out because it throws an error on purpose. Uncomment to see it work!
 #Product.new(title: "LEGO Iron Man vs. Ultron", price: 22.99, stock: 55)
 
-#ERROR HERE
-#puts Product.find_by_title("Nano Block Empire State Building")
-#puts Product.find_by_title("LEGO Firehouse Headquarter")
-
-#nanoblock = Product.find_by_title("Nano Block Empire State Building")
-#firehouse = Product.find_by_title("LEGO Firehouse Headquarter")
+nanoblock = Product.find_by_title("Nano Block Empire State Building")
+firehouse = Product.find_by_title("LEGO Firehouse Headquarter")
 
 puts nanoblock.title # Should return 'Nano Block Empire State Building'
 puts nanoblock.price # Should return 49.99
@@ -53,7 +47,8 @@ puts Customer.all.count # Should return 2
 #Customer.new(name: "Walter Latimer")
 # Should return DuplicateCustomerError: 'Walter Latimer' already exists.
 
-# walter = Customer.find_by_name("Walter Latimer")
+#ERROR - MAYBE SOMETHING WITH SELF???
+#walter = Customer.find_by_name("Walter Latimer")
 
 # puts walter.name # Should return "Walter Latimer"
 

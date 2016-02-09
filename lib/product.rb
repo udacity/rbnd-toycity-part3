@@ -15,14 +15,11 @@ class Product
     @@products
   end
 
-  def find_by_title(title)
+  def self.find_by_title(title)
 	@@products.each do |prod|
-	 if @title == prod.title
-		puts @title
-		puts @price
-		puts @stock
+	 if prod.title == title
+	 	return prod
 	 end
-	counter += 1
     end
    end
 
