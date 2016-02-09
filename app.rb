@@ -29,12 +29,12 @@ puts nanoblock.stock # Should return 12
 puts nanoblock.in_stock? # Should return true
 puts firehouse.in_stock? # Should return false
 
-#ERROR HERE
-#products_in_stock = Product.in_stock
-#puts products_in_stock[0]
+
+products_in_stock = Product.in_stock
+
 # Should return an array of all products with a stock greater than zero
-# puts products_in_stock.include?(nanoblock) # Should return true
-# puts products_in_stock.include?(firehouse) # Should return false
+puts products_in_stock.include?(nanoblock) # Should return true
+puts products_in_stock.include?(firehouse) # Should return false
 
 # CUSTOMERS
 

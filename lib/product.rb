@@ -18,6 +18,8 @@ class Product
   def self.find_by_title(title)
 	@@products.each do |prod|
 	 if prod.title == title
+	 	puts prod.title
+	 	puts "title above"
 	 	return prod
 	 end
     end
@@ -27,11 +29,11 @@ class Product
    	@stock > 0
    end
 
-   def in_stock
+   def self.in_stock
    	stock_array = []
    	@@products.each do |prod|
-   		if @stock > 0
-   			stock_array.push(@title)
+   		if prod.stock != 0
+   			stock_array.push(prod)
 		end
 	end
 	return stock_array
