@@ -1,12 +1,16 @@
 
 
 class Customer
-  attr_reader :name
+  attr_reader :name, :street, :city, :state, :zip
 
   @@customers = []
 
   def initialize(options={})
     @name = options[:name]
+    @street = options[:street]
+    @city = options[:city]
+    @state = options[:state]
+    @zip = options[:zip]
     add_to_customers
     #find_by_name
   end

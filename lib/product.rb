@@ -41,6 +41,14 @@ class Product
    	@stock -= 1
    end
 
+   def low_stock_warning
+
+	   if @stock < 10
+	   	"Low Stock!"
+	   end
+
+   end
+
   private
 
   def add_to_products
