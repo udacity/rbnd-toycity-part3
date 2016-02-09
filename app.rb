@@ -9,12 +9,14 @@ puts "test"
 # PRODUCTS
 
 Product.new(title: "LEGO Iron Man vs. Ultron", price: 22.99, stock: 55)
-Product.new(title: "Nano Block Empire State Building", price: 49.99, stock: 12)
+nanoblock = Product.new(title: "Nano Block Empire State Building", price: 49.99, stock: 12)
 Product.new(title: "LEGO Firehouse Headquarter", price: 199.99, stock: 0)
 
 puts Product.all.count # Should return 3
+puts nanoblock.price
 
-# Product.new(title: "LEGO Iron Man vs. Ultron", price: 22.99, stock: 55)
+Product.new(title: "LEGO Iron Man vs. Ultron", price: 22.99, stock: 55)
+puts Product.all.count
 # Should return DuplicateProductError: 'LEGO Iron Man vs. Ultron' already exists.
 
 # nanoblock = Product.find_by_title("Nano Block Empire State Building")
