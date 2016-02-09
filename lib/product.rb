@@ -18,8 +18,6 @@ class Product
   def self.find_by_title(title)
 	@@products.each do |prod|
 	 if prod.title == title
-	 	puts prod.title
-	 	puts "title above"
 	 	return prod
 	 end
     end

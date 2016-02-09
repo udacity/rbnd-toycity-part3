@@ -25,6 +25,14 @@ class Customer
 #	end
  # end
 
+   def self.find_by_name(name)
+	@@customers.each do |cust|
+	 if cust.name == name
+	 	return cust
+	 end
+    end
+   end
+
 
   private
 
