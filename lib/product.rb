@@ -8,12 +8,24 @@ class Product
     @title = options[:title]
     @price = options[:price]
     @stock = options[:stock]
-    @in_stock = is_in_stock?
     add_to_products_list
   end
 
   def self.all
     @@products
+  end
+
+  def self.find_by_title(title)
+    @@products.find { |product| product.title == title }
+  end
+
+  def self.in_stock
+    @@products.select { |product| product.stock > 0 }
+  end
+
+
+  def in_stock?
+    @stock > 0
   end
 
   def find_by_title(title)
@@ -24,18 +36,13 @@ class Product
     find_by_title(title)==nil
   end
 
-  def is_in_stock?
-    @stock > 0
-  end
-
-
   private
 
   def add_to_products_list
     if not_exist_in_list?
       @@products << self
     else
-      puts "already exist"
+      raise DuplicateProductError, "'#{self.title}' already exists."
     end
   end
 end
