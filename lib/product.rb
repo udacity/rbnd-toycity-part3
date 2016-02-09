@@ -37,6 +37,10 @@ class Product
 	return stock_array
    end
 
+   def reduce_stock
+   	@stock -= 1
+   end
+
   private
 
   def add_to_products
@@ -48,10 +52,7 @@ class Product
 		end
     	counter += 1
   	end
-
     @@products << self
   end
-
-  #add_to_products
 end
 

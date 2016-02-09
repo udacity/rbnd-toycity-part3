@@ -15,8 +15,12 @@ class Customer
     @@customers
   end
 
-  def purchase
-  	puts 333
+  def purchase(item)
+  	if item.stock > 0  		
+		transaction = Transaction.new(@name, item)
+	else
+  		raise OutOfStockError, "#{item.title} is out of stock!"
+	end
   end
 
 #  def find_by_name
