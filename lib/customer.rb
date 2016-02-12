@@ -24,11 +24,6 @@ class Customer
       find_by_name(name)==nil
     end
 
-
-
-
-
-
     private
 
     def add_to_customers_list
