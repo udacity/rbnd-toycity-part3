@@ -1,7 +1,7 @@
 #require_relative 'errors'
 
 class Product
-  attr_reader :title
+  attr_reader :title,:price,:stock
   @@products = []
 
   def initialize(options={})
@@ -13,7 +13,19 @@ class Product
 
   def self.all
     @@products
-  end
+	end
+
+	def self.find_by_title(title)
+		@@products.bsearch { |x| x.title == title }
+	end
+
+	def self.in_stock
+		in_stock = []
+		@@products.each do |product|
+			in_stock << product if product.in_stock?
+		end
+		in_stock
+	end
 
   def add_to_products
     begin
@@ -26,8 +38,12 @@ class Product
   end
 
   # this should always work because index returns nil if not found which evaluates
-  # to false in ternary ...
+  # to false in ternary ... plus this is an instance method not a class method
   def product_exists?
-    @@products.index {|x| x.title == self.title } ? true : false
-  end
+    @@products.index { |x| x.title == self.title } ? true : false
+	end
+
+	def in_stock?
+		@stock > 0 ? true : false
+	end
 end
