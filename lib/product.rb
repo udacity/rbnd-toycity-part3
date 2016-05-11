@@ -16,7 +16,7 @@ class Product
 	end
 
 	def self.find_by_title(title)
-		@@products.bsearch { |x| x.title == title }
+		@@products.find { |x| x.title == title }
 	end
 
 	def self.in_stock
