@@ -1,13 +1,14 @@
+# customer transactions are managed in this class
 class Transaction
   attr_reader :customer, :product, :id
-  @@id_count = 0
+  @@id_count     = 0
   @@transactions = []
 
-  def initialize(customer,product)
+  def initialize(customer, product)
     @@id_count += 1
-    @customer = customer
-    @product = product
-    @id = @@id_count
+    @customer  = customer
+    @product   = product
+    @id        = @@id_count
     buy_product
     @@transactions << self
   end
@@ -18,10 +19,11 @@ class Transaction
 
   def self.find(index)
     return nil if index <= 0
-    @@transactions[index-1]
+    @@transactions[index - 1]
   end
 
   private
+
   def buy_product
     begin
       raise OutOfStockError unless product.in_stock?
