@@ -1,5 +1,3 @@
-#require_relative 'errors'
-
 class Product
   attr_reader :title,:price,:stock
   @@products = []
@@ -41,9 +39,20 @@ class Product
   # to false in ternary ... plus this is an instance method not a class method
   def product_exists?
     @@products.index { |x| x.title == self.title } ? true : false
-	end
+  end
 
 	def in_stock?
 		@stock > 0 ? true : false
-	end
+  end
+
+  def sell_to_customer
+    if in_stock?
+      decrement_stock
+    end
+  end
+
+  private
+  def decrement_stock
+    @stock -= 1
+  end
 end

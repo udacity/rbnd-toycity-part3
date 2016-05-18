@@ -1,11 +1,13 @@
-require_relative 'errors'
+require 'terminal-table'
 
 class Customer
-	attr_reader :name
-	@@customers = []
+  @@customers = []
+
+  attr_reader :name, :transactions
 
 	def initialize(options={})
-		@name = options[:name]
+    @transactions = []
+    @name = options[:name]
 		add_customer
 	end
 
@@ -29,6 +31,17 @@ class Customer
 
 	def customer_exists?
 		@@customers.index { |x| x.name == self.name } ? true : false
-	end
+  end
+
+  def purchase(product)
+    @transactions << Transaction.new(self,product)
+    @transactions.last
+  end
+
+  def order_history
+    @transactions.each do |transaction|
+      print "Order Id: #"
+    end
+  end
 
 end
