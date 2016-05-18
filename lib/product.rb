@@ -31,7 +31,7 @@ class Product
     begin
       raise DuplicateProductError if product_exists?
     rescue DuplicateProductError => e
-      puts "#{title} already exists. (#{e.message})"
+      puts "#{@title} already exists. (#{e.message})"
       return
     end
     @@products << self
@@ -40,7 +40,7 @@ class Product
   # this should always work because index returns nil if not found which evaluates
   # to false in ternary ... plus this is an instance method not a class method
   def product_exists?
-    @@products.index { |x| x.title == title } ? true : false
+    @@products.index { |x| x.title == @title } ? true : false
   end
 
   def in_stock?
@@ -53,9 +53,23 @@ class Product
     end
   end
 
+  def return_to_store
+    begin
+      raise ProductNotFoundError unless product_exists?
+    rescue ProductNotFoundError => e
+      puts "#{@title} not found in store. (#{e.message})"
+      return
+    end
+    increment_stock
+  end
+
   private
 
   def decrement_stock
     @stock -= 1
+  end
+
+  def increment_stock
+    @stock += 1
   end
 end

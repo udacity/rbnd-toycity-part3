@@ -40,17 +40,28 @@ class Customer
     @transactions.last
   end
 
-  def order_history
+  def transaction_history
     table = Terminal::Table.new do |r|
       @transactions.each do |t|
-        row = ["#{t.id.to_s}", "#{t.product.title}", "#{t.product.price}"]
+        row = ["#{t.id.to_s}","#{t.trans_type}","#{t.status}","#{t.product.title}", "#{t.product.price}"]
         r << row
       end
     end
 
-    table.title    = "#{self.name}'s Orders"
-    table.headings = ['Order ID', 'Product', 'Price']
+    table.title    = "#{self.name}'s Transactions"
+    table.headings = ['Order ID','Trans Type','Status','Product','Price']
     puts table
+  end
+
+  def return_item(title)
+    begin
+      transaction = @transactions.find { |trans| trans.product.title == title}
+      raise ProductNotFoundError if transaction.nil?
+    rescue ProductNotFoundError => e
+      puts "#{title} not found in customer transactions. (#{e.message})"
+      return
+    end
+    @transactions << Transaction.new(self,transaction.product,{type: :prod_return})
   end
 
 end

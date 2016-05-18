@@ -65,4 +65,20 @@ puts transaction2.product == nanoblock # Should return true
 walter.purchase(firehouse)
 # Should return OutOfStockError: 'LEGO Firehouse Headquarter' is out of stock.
 
-walter.order_history
+# a typical need: display customer history (this falls maybe
+# under 'better ways to find transactions')
+puts
+puts "Walter Latimer bought something ..."
+puts "Boss runs Walter Latimer's Transaction History:"
+walter.transaction_history
+
+# a real necessity in the real world: returns
+# a return is a transaction just like a purchase is a transaction
+puts
+puts "Walter Latimer returns Nano Block Empire State Building ..."
+puts "Boss runs Walter Latimer's latest Transaction History:"
+walter.return_item('Nano Block Empire State Building')
+walter.transaction_history
+
+puts
+puts "Total transactions: #{Transaction.all.count}" #should return 5
