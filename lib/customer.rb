@@ -48,7 +48,7 @@ class Customer
       end
     end
 
-    table.title    = "#{self.name}'s Transactions"
+    table.title    = "#{@name}'s Transactions"
     table.headings = ['Order ID','Trans Type','Status','Product','Price','Transaction Amount']
     puts table
   end

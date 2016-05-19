@@ -1,0 +1,25 @@
+How long did you spend working on this project?
+	I didn't keep exact track. Maybe 8 hours, but split over many days because
+	of distractions. If I were asked in scrum for an estimate of this 'story'
+	I'd give it about a day of effort, may half a day
+
+What was the most rewarding challenge you conquered?
+	I'm really starting to dig writing more Ruby idioms like:
+
+	in_stock << product if product.in_stock?
+	or
+	@@products.index { |x| x.title == @title } ? true : false
+
+What two additional features did you build? Why?
+	In any sales system you want to support an order history (in this case
+	a transaction history). Also you want to support returns. So I implemented
+	both of those in a very rudimentary form. Also I had to invent my own
+	user stories / requirements for those. I commented on them in transaction.rb
+
+Where do you still have room to grow?
+	I'm maybe a six pushing to 7 on a scale of 1 to 10 in Ruby. Let me provide
+	context: Matz and the people defining the language are 10s. The people
+	who write Ruby interpreters (or maybe someday JITs) are 9s. Library writers
+	and maintainers are 8s. I've got a long way to go, even just learning the
+	Ruby APIs better, learning Ruby design patterns, and learning Rails are
+	mostly still unexplored by me. Lots of work to do!
