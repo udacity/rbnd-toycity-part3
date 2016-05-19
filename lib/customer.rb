@@ -43,13 +43,13 @@ class Customer
   def transaction_history
     table = Terminal::Table.new do |r|
       @transactions.each do |t|
-        row = ["#{t.id.to_s}","#{t.trans_type}","#{t.status}","#{t.product.title}", "#{t.product.price}"]
+        row = ["#{t.id.to_s}","#{t.trans_type}","#{t.status}","#{t.product.title}", "#{t.product.price}","#{t.trans_amt.to_s}"]
         r << row
       end
     end
 
     table.title    = "#{self.name}'s Transactions"
-    table.headings = ['Order ID','Trans Type','Status','Product','Price']
+    table.headings = ['Order ID','Trans Type','Status','Product','Price','Transaction Amount']
     puts table
   end
 

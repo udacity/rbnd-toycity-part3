@@ -1,6 +1,13 @@
+class Formatter
+  def self.format_dollars(amount)
+    amt = format('%.2f', amount)
+    amt
+  end
+end
+
 # customer transactions are managed in this class
 class Transaction
-  attr_reader :customer, :product, :id, :trans_type, :status
+  attr_reader :customer, :product, :id, :trans_type, :status, :trans_amt
   @@id_count     = 0
   @@transactions = []
 
@@ -14,11 +21,14 @@ class Transaction
     @customer  = customer
     @product   = product
     @id        = @@id_count
+    @trans_amt = Formatter.format_dollars(0.00)
     if opts[:type] == :prod_return
       begin
         @trans_type = :prod_return
         return_product
         @status = :successful
+        @trans_amt = Formatter.format_dollars(@product.price)
+        @trans_amt.prepend("-")
       rescue StandardError => e
         @status = e.message
       end
@@ -27,12 +37,12 @@ class Transaction
         @trans_type = :purchase
         buy_product
         @status = :successful
+        @trans_amt = Formatter.format_dollars(@product.price)
       rescue StandardError => e
         @status = e.message
       end
     end
     @@transactions << self
-    i = 0
   end
 
   def self.all
@@ -50,7 +60,7 @@ class Transaction
     begin
       raise OutOfStockError unless product.in_stock?
     rescue OutOfStockError => e
-      puts e.message
+      puts "#{e.message}: '#{@product.title}' is out of stock."
       raise e
     end
     @product.sell_to_customer
