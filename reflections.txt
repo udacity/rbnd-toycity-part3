@@ -1,0 +1,15 @@
+How long did you spend working on this project?
+
+About 4.5 hours
+
+What was the most rewarding challenge you conquered?
+
+Two or three times I felt like giving up, but took a step back and figured it out. Can’t remember the specifics
+
+What two additional features did you build? Why?
+
+I added the ability to capture more personal information. Will be helpful for marketing. Also, added a function to check if stock is low. Out of stock is nice, but low stock warnings are helpful as well.
+
+Where do you still have room to grow?
+
+Given that I wrote my first line of Ruby code on Friday afternoon…everywhere. Hacking on it hard this week. 
