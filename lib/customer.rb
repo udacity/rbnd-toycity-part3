@@ -8,7 +8,6 @@ class Customer
   attr_reader :name, :transactions
 
   def initialize(options={})
-    @transactions = []
     @name         = options[:name]
     add_customer
   end
@@ -36,32 +35,60 @@ class Customer
   end
 
   def purchase(product)
-    @transactions << Transaction.new(self, product)
-    @transactions.last
-  end
+		begin
+			PurchaseTrans.new(self, product)
+		rescue OutOfStockError => e
+			puts "#{e.message}: '#{product.title}' is out of stock."
+		rescue Exception => e
+			puts "#{e.message}"
+		end
+	end
+
+	def return_items(title, quantity)
+		return 0 if quantity <= 0
+		begin
+			cust_trans = Transaction.by_customer(@name)
+			transactions = cust_trans.select { |trans| trans.product.title == title}
+			raise ProductNotFoundError if transactions.nil?
+		rescue ProductNotFoundError => e
+			puts "#{title} not found in customer transactions. (#{e.message})"
+			return 0
+		end
+
+		begin
+			# we really need to allow cust to return as many of the product as they want
+			# but not more than they ever bought and not 0 items
+			num_returned = 0
+			num_items_bought = transactions.length
+			quantity = num_items_bought if quantity > num_items_bought
+			for idx in 0..(quantity - 1) do
+				ReturnTrans.new(self,transactions[idx].product)
+				num_returned += 1
+			end
+		rescue Exception => e
+			puts "#{e.message}"
+		end
+		num_returned
+	end
 
   def transaction_history
-    table = Terminal::Table.new do |r|
-      @transactions.each do |t|
-        row = ["#{t.id.to_s}","#{t.trans_type}","#{t.status}","#{t.product.title}", "#{t.product.price}","#{t.trans_amt.to_s}"]
-        r << row
+		# filter transactions by the customer name
+		transactions = Transaction.by_customer(@name)
+    table = Terminal::Table.new do |table_row|
+      transactions.each do |column|
+        row = ["#{column.id.to_s}",
+							 "#{column.trans_type}",
+							 "#{column.status}",
+							 "#{column.product.title}",
+							 "#{column.product.price}",
+							 "#{column.trans_amt.to_s}"]
+        table_row << row
       end
     end
 
     table.title    = "#{@name}'s Transactions"
     table.headings = ['Order ID','Trans Type','Status','Product','Price','Transaction Amount']
     puts table
-  end
-
-  def return_item(title)
-    begin
-      transaction = @transactions.find { |trans| trans.product.title == title}
-      raise ProductNotFoundError if transaction.nil?
-    rescue ProductNotFoundError => e
-      puts "#{title} not found in customer transactions. (#{e.message})"
-      return
-    end
-    @transactions << Transaction.new(self,transaction.product,{type: :prod_return})
   end
 
 end
