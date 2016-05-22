@@ -28,9 +28,9 @@ class Transaction
     @@transactions
   end
 
-  def self.find(index)
-    return nil if index <= 0
-    @@transactions[index - 1]
+  def self.find(id)
+    return nil if id <= 0
+    @@transactions.find {|trans| trans.id == id}
 	end
 
 	def self.by_customer(name)
@@ -52,7 +52,7 @@ class Transaction
 		end
 
 		table.title    = "All Transactions"
-		table.headings = ['Customer','Order ID','Trans Type','Status','Product','Price','Transaction Amount']
+		table.headings = ['Customer','Trans ID','Trans Type','Status','Product','Price','Transaction Amount']
 		puts table
 	end
 
@@ -70,9 +70,9 @@ class PurchaseTrans < Transaction
 			buy_product
 			@status = :successful
 			@trans_amt = Formatter.format_dollars(@product.price)
-		rescue Exception => e
-			@status = e.message
-			raise e
+		rescue Exception => error
+			@status = error.message
+			raise error
 		ensure
 			@@transactions << self
 		end
@@ -84,7 +84,6 @@ class PurchaseTrans < Transaction
 	def buy_product
 		@product.sell_to_customer
 	end
-
 end
 
 class ReturnTrans < Transaction
@@ -97,12 +96,12 @@ class ReturnTrans < Transaction
 			@status = :successful
 			@trans_amt = Formatter.format_dollars(@product.price)
 			@trans_amt.prepend("-")
-		rescue ProductNotFoundError => e
-			puts "#{e.message}: '#{@product.title}' is out of stock."
-			raise e
-		rescue Exception => e
-			@status = e.message
-			raise e
+		rescue ProductNotFoundError => error
+			puts "#{error.message}: '#{@product.title}' is out of stock."
+			raise error
+		rescue Exception => error
+			@status = error.message
+			raise error
 		ensure
 			@@transactions << self
 		end

@@ -17,30 +17,30 @@ class Customer
   end
 
   def self.find_by_name(name)
-    @@customers.find { |x| x.name == name }
+    @@customers.find { |customer| customer.name == name }
   end
 
   def add_customer
     begin
       raise DuplicateCustomerError if customer_exists?
-    rescue DuplicateCustomerError => e
-      puts "#{e.message}: #{name} already exists."
+    rescue DuplicateCustomerError => error
+      puts "#{error.message}: #{name} already exists."
       return
     end
     @@customers << self
   end
 
   def customer_exists?
-    @@customers.index { |x| x.name == name } ? true : false
+    @@customers.map { |customer| customer.name }.include? @name
   end
 
   def purchase(product)
 		begin
 			PurchaseTrans.new(self, product)
-		rescue OutOfStockError => e
-			puts "#{e.message}: '#{product.title}' is out of stock."
-		rescue Exception => e
-			puts "#{e.message}"
+		rescue OutOfStockError => error
+			puts "#{error.message}: '#{product.title}' is out of stock."
+		rescue Exception => error
+			puts "#{error.message}"
 		end
 	end
 
@@ -50,8 +50,8 @@ class Customer
 			cust_trans = Transaction.by_customer(@name)
 			transactions = cust_trans.select { |trans| trans.product.title == title}
 			raise ProductNotFoundError if transactions.nil?
-		rescue ProductNotFoundError => e
-			puts "#{title} not found in customer transactions. (#{e.message})"
+		rescue ProductNotFoundError => error
+			puts "#{title} not found in customer transactions. (#{error.message})"
 			return 0
 		end
 
@@ -65,8 +65,8 @@ class Customer
 				ReturnTrans.new(self,transactions[idx].product)
 				num_returned += 1
 			end
-		rescue Exception => e
-			puts "#{e.message}"
+		rescue Exception => error
+			puts "#{error.message}"
 		end
 		num_returned
 	end
@@ -87,8 +87,7 @@ class Customer
     end
 
     table.title    = "#{@name}'s Transactions"
-    table.headings = ['Order ID','Trans Type','Status','Product','Price','Transaction Amount']
+    table.headings = ['Trans ID','Trans Type','Status','Product','Price','Transaction Amount']
     puts table
   end
-
 end

@@ -9,11 +9,16 @@ class Product
     @price = options[:price]
     @stock = options[:stock]
     add_to_products
-	rescue DuplicateProductError => e
-		puts "#{e.message}: '#{@title}' already exists."
-	rescue Exception => e
-		puts "#{e.message}"
-		raise e
+	rescue DuplicateProductError => error
+		# for this PARTICULAR error only i rescue without rethrowing
+		# owing to the nature of how app.rb was written (it uses product directly
+		# and does not rescue ... i could change that of course but wanted to stay
+		# strictly to spec) and just print an error message. all other errors are
+		# logged and re-thrown.
+		puts "#{error.message}: '#{@title}' already exists."
+	rescue Exception => error
+		puts "#{error.message}"
+		raise error
   end
 
   def self.all
@@ -25,11 +30,7 @@ class Product
   end
 
   def self.in_stock
-    in_stock = []
-    @@products.each do |product|
-      in_stock << product if product.in_stock?
-    end
-    in_stock
+    @@products.select {|product| product.in_stock? }
   end
 
   def add_to_products
@@ -44,7 +45,7 @@ class Product
   end
 
   def in_stock?
-    @stock > 0 ? true : false
+    @stock > 0
   end
 
   def sell_to_customer
