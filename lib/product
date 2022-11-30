@@ -1,0 +1,30 @@
+Last login: Mon Feb  8 00:27:03 on ttys000
+Corys-MacBook-Pro:~ corybray$ ls
+Applications	Downloads	Music		hello.rb
+Desktop		Library		Pictures	reflections
+Documents	Movies		Public
+Corys-MacBook-Pro:~ corybray$ cd
+Corys-MacBook-Pro:~ corybray$ cd Desktop
+Corys-MacBook-Pro:Desktop corybray$ ls
+New_Ruby_Practice
+Ruby_Practice
+Screen Shot 2016-02-08 at 2.49.40 PM.png
+Corys-MacBook-Pro:Desktop corybray$ cd New_Ruby_Practice
+Corys-MacBook-Pro:New_Ruby_Practice corybray$ ls
+puppies.rb		rbnd-demo-project	rbnd-toycity-part3
+Corys-MacBook-Pro:New_Ruby_Practice corybray$ cd rbnd-toycity-part3
+Corys-MacBook-Pro:rbnd-toycity-part3 corybray$ ls
+LICENSE		README.md	app.rb		lib
+Corys-MacBook-Pro:rbnd-toycity-part3 corybray$ git init
+Reinitialized existing Git repository in /Users/corybray/Desktop/New_Ruby_Practice/rbnd-toycity-part3/.git/
+Corys-MacBook-Pro:rbnd-toycity-part3 corybray$ irb -r ./app.rb
+/Users/corybray/Desktop/New_Ruby_Practice/rbnd-toycity-part3/app.rb:10:in `<top (required)>': uninitialized constant Product (NameError)
+	from /System/Library/Frameworks/Ruby.framework/Versions/2.0/usr/lib/ruby/2.0.0/rubygems/core_ext/kernel_require.rb:55:in `require'
+	from /System/Library/Frameworks/Ruby.framework/Versions/2.0/usr/lib/ruby/2.0.0/rubygems/core_ext/kernel_require.rb:55:in `require'
+	from /System/Library/Frameworks/Ruby.framework/Versions/2.0/usr/lib/ruby/2.0.0/irb/init.rb:286:in `block in load_modules'
+	from /System/Library/Frameworks/Ruby.framework/Versions/2.0/usr/lib/ruby/2.0.0/irb/init.rb:284:in `each'
+	from /System/Library/Frameworks/Ruby.framework/Versions/2.0/usr/lib/ruby/2.0.0/irb/init.rb:284:in `load_modules'
+	from /System/Library/Frameworks/Ruby.framework/Versions/2.0/usr/lib/ruby/2.0.0/irb/init.rb:20:in `setup'
+	from /System/Library/Frameworks/Ruby.framework/Versions/2.0/usr/lib/ruby/2.0.0/irb.rb:380:in `start'
+	from /usr/bin/irb:12:in `<main>'
+Corys-MacBook-Pro:rbnd-toycity-part3 corybray$ 
